@@ -7,14 +7,15 @@ import Conteiner from "./Conteiner"
 
 function NavBar(){
     return (
-    <nav class={styles.navbar}>
+    <nav className={styles.navbar}>
     <Conteiner>
         <Link to="/"><img src={logo} alt="logo" /></Link>
-        <ul class={styles.list}>
-        <Link to="/">Home</Link>
-        <Link to="/contact">Contato</Link>
-        <Link to="/company">Company</Link>
-        <Link to="/newProject">NewProject</Link>
+        <ul className={styles.list}>
+        <li className={styles.item}><Link to="/">Home</Link></li>
+        <li className={styles.item}><Link to="/projects">Projetos</Link></li>
+        <li className={styles.item}><Link to="/contact">Contato</Link></li>
+        <li className={styles.item}><Link to="/company">Empresa</Link></li>
+        <li className={styles.item}><Link to="/newProject">NewProject</Link></li>
         </ul>
     </Conteiner>
     </nav>

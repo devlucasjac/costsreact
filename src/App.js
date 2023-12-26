@@ -3,6 +3,7 @@ import Home from "./components/pages/Home.js";
 import Contact from "./components/pages/Contact.js";
 import Company from "./components/pages/Company.js";
 import NewProject from "./components/pages/NewProject.js";
+import Projects from "./components/pages/Projects.js";
 
 import Conteiner from "./components/layout/Conteiner";
 import NavBar from "./components/layout/NavBar";
@@ -21,7 +22,9 @@ function App() {
           <Route path="/company" element={<Company />} />
 
           <Route path="/newProject" element={<NewProject />} />
-        </Routes>
+          
+          <Route path="/projects" element={<Projects />}/>
+        </Routes> 
       </Conteiner>
       <Footer></Footer>
     </Router>
