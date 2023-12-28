@@ -2,14 +2,9 @@ import styles from "./ProjectForm.module.css";
 
 import Input from "../form/input";
 import Select from "../form/select";
+import SubmitButton from "../form/submitButton";
 
-function ProjectForm() {
-  function Conta(e) {
-    e.preventDefault();
-    console.log("2");
-    return 2;
-  }
-
+function ProjectForm({ btnText }) {
   const ops = ["ola", "ted", "tef", "selic"];
 
   return (
@@ -27,9 +22,7 @@ function ProjectForm() {
         placeholder="Insira o orçamento total"
       />
       <Select name="category_id" text="Selecione a categoria:" options={ops} />
-      <div>
-        <input type="submit" value="criar projeto" onClick={Conta} />
-      </div>
+      <SubmitButton text={btnText} />
     </form>
   );
 }
