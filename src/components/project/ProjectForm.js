@@ -1,3 +1,7 @@
+import styles from "./ProjectForm.module.css";
+
+import Input from "../form/input";
+
 function ProjectForm() {
   function Conta(e) {
     e.preventDefault();
@@ -5,13 +9,19 @@ function ProjectForm() {
     return 2;
   }
   return (
-    <form>
-      <div>
-        <input type="text" placeholder="Insira o nome do projeto" />
-      </div>
-      <div>
-        <input type="number" placeholder="Insira o orçamento total" />
-      </div>
+    <form className={styles.form}>
+      <Input
+        type="text"
+        text="Nome do projeto:"
+        placeholder="insira o nome do projeto"
+        name="name"
+      />
+      <Input
+        type="number"
+        text="Orçamento do projeto:"
+        name="budget"
+        placeholder="Insira o orçamento total"
+      />
       <div>
         <select name="category_id">
           <option disabled>Selecione a categoria</option>
