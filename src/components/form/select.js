@@ -6,9 +6,9 @@ function Select({ text, name, options, handleOnChenge, value }) {
       <label htmlFor={name}>{text}</label>
       <select name={name} id={name} onChange={handleOnChenge} value={value}>
         <option>Selecione uma opção</option>
-        {options.map((op, i) => (
-          <option value={op} id={i}>
-            {op}
+        {options.map((option) => (
+          <option value={option.nome} id={option.id} key={option.id}>
+            {option.nome}
           </option>
         ))}
       </select>
