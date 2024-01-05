@@ -8,6 +8,8 @@ function NewProject() {
   //é utilizado para se redirecionar o usuario a uma pagina desejada
   const navigate = useNavigate();
 
+  const state = { message: "Projeto criado com sucesso!" };
+
   function createPost(project) {
     //initialize cost and services
     fetch("http://127.0.0.1:8000/api/v1/projetos/", {
@@ -20,7 +22,7 @@ function NewProject() {
       .then((resp) => resp.json)
       .then((data) => {
         console.log(data);
-        navigate("/projects", { message: "Projeto Criado com Sucesso!" });
+        navigate("/projects", { state });
       })
       .catch((err) => console.log(err));
   }
