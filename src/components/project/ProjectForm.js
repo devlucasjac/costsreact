@@ -6,12 +6,13 @@ import Input from "../form/input";
 import Select from "../form/select";
 import SubmitButton from "../form/submitButton";
 
-function ProjectForm({ btnText }) {
+function ProjectForm({ handleSubmit, btnText, projectData }) {
   const [categories, setCategories] = useState([]);
+  const [project, setProject] = useState(projectData || {});
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/v1/categoria/", {
       method: "GET",
-      origin: "*",
       headers: {
         "Content-Type": "aplication/json",
       },
@@ -21,28 +22,50 @@ function ProjectForm({ btnText }) {
       .catch((err) => console.log(err));
   }, []);
 
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(project);
+    handleSubmit(project);
+  };
+
+  function handleChange(e) {
+    setProject({ ...project, [e.target.name]: e.target.value });
+    console.log(project);
+  }
+
+  function handleCategory(e) {
+    setProject({
+      ...project,
+      categoria: e.target.options[e.target.selectedIndex].id,
+    });
+    console.log(project);
+  }
+
   return (
-    <form className={styles.form}>
+    <form onSubmit={submit} className={styles.form}>
       <Input
         type="text"
         text="Nome do projeto:"
         placeholder="insira o nome do projeto"
-        name="name"
+        name="nome"
+        handleOnChange={handleChange}
       />
       <Input
         type="number"
         text="Orçamento do projeto:"
-        name="budget"
+        name="orçamento"
         placeholder="Insira o orçamento total"
+        handleOnChange={handleChange}
       />
       <Select
-        name="category_id"
+        name="categoria"
         text="Selecione a categoria:"
         options={categories}
+        handleOnChange={handleCategory}
       />
       <SubmitButton text={btnText} />
     </form>
   );
 }
-
+// insira em Select quando quiser: value={project.categoria ? project.categoria : ""}
 export default ProjectForm;
