@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import Message from "../layout/Message";
+import Conteiner from "../layout/Conteiner";
+import LinkButton from "../layout/LinkButton";
+import ProjectCard from "../project/ProjectCard";
+
+import styles from "./Projects.module.css";
 
 function Projects() {
   const [projetos, setProjetos] = useState([]);
@@ -26,9 +31,15 @@ function Projects() {
   });
 
   return (
-    <div>
-      <h1>Meus Projetos</h1>
+    <div className={styles.project_container}>
+      <div className={styles.title_container}>
+        <h1>Meus Projetos</h1>
+        <LinkButton to="/newproject" text="Criar Projeto" />
+      </div>
       {message && <Message msg={message} type="success" />}
+      <Conteiner customClass="start">
+        <ProjectCard></ProjectCard>
+      </Conteiner>
     </div>
   );
 }
