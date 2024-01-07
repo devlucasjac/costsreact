@@ -26,9 +26,12 @@ function Projects() {
       },
     })
       .then((resp) => resp.json())
-      .then((data) => setProjetos(data))
+      .then((data) => {
+        console.log(data);
+        setProjetos(data);
+      })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <div className={styles.project_container}>
@@ -38,7 +41,16 @@ function Projects() {
       </div>
       {message && <Message msg={message} type="success" />}
       <Conteiner customClass="start">
-        <ProjectCard></ProjectCard>
+        {projetos.length > 0 &&
+          projetos.map((projeto) => (
+            <ProjectCard
+              id={projeto.id}
+              name={projeto.nome}
+              budget={projeto.orçamento}
+              category={projeto.categoria}
+              key={projeto.id}
+            />
+          ))}
       </Conteiner>
     </div>
   );
