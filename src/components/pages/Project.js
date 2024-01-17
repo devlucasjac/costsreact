@@ -7,12 +7,18 @@ import Loading from "../layout/Loading";
 import Conteiner from "../layout/Conteiner";
 import ProjectForm from "../project/ProjectForm";
 import Message from "../layout/Message";
+import ServiceForm from "../services/ServiceForm";
 
 function Project() {
   const { id } = useParams();
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
   const [project, setProject] = useState();
+  const [services, setServices] = useState([]);
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const [showServiceForm, setShowServiceForm] = useState(false);
   const [message, setMessage] = useState();
   const [type, setType] = useState();
 
@@ -20,9 +26,7 @@ function Project() {
     setTimeout(() => {
       fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: headers,
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -36,11 +40,10 @@ function Project() {
   }, [id]);
 
   function editPost(project) {
+    setMessage("");
     fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify(project),
     })
       .then((resp) => resp.json())
@@ -57,8 +60,40 @@ function Project() {
       });
   }
 
+  function createService(service) {
+    setMessage("");
+    fetch("http://127.0.0.1:8000/api/v1/servi%C3%A7o/", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(service),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        if (
+          data ===
+          "O custo total dos serviços não deve exceder o orçamento do projeto"
+        ) {
+          console.log("entrou");
+          setMessage(data);
+          setType("error");
+          return;
+        }
+        setMessage("Serviço Criado!");
+        setType("success");
+      })
+      .catch((e) => {
+        setMessage(e);
+        setType("error");
+      });
+  }
+
   function toggleProjectForm() {
     setShowProjectForm(!showProjectForm);
+  }
+
+  function toggleServiceFrom() {
+    setShowServiceForm(!showServiceForm);
   }
 
   return (
@@ -95,6 +130,25 @@ function Project() {
                 </div>
               )}
             </div>
+            <div className={styles.service_form_container}>
+              <h2>Adicione um serviço:</h2>
+              <button onClick={toggleServiceFrom} className={styles.btn}>
+                {!showServiceForm ? "Adicionar Serviço" : "Fechar"}
+              </button>
+              <div className={styles.project_info}>
+                {showServiceForm && (
+                  <ServiceForm
+                    handleSubmit={createService}
+                    btnText="Adicionar Serviço"
+                    projectData={project}
+                  />
+                )}
+              </div>
+            </div>
+            <h2>Serviços:</h2>
+            <Conteiner customClass="start">
+              <p>serviços</p>
+            </Conteiner>
           </Conteiner>
         </div>
       ) : (

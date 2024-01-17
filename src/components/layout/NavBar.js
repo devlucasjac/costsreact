@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 import styles from "./NavBar.module.css";
-import logo from "../../img/0.png";
+import logo from "../../img/moeda-brasil.png";
+//import logo from "../../img/0.png";
 
 import Conteiner from "./Conteiner";
 
@@ -10,7 +11,7 @@ function NavBar() {
     <nav className={styles.navbar}>
       <Conteiner>
         <Link to="/">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" className={styles.nav_img} />
         </Link>
         <ul className={styles.list}>
           <li className={styles.item}>

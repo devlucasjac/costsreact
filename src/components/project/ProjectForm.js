@@ -29,7 +29,6 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
 
   function handleChange(e) {
     setProject({ ...project, [e.target.name]: e.target.value });
-    console.log(project);
   }
 
   function handleCategory(e) {
@@ -37,7 +36,6 @@ function ProjectForm({ handleSubmit, btnText, projectData }) {
       ...project,
       categoria: e.target.options[e.target.selectedIndex].id,
     });
-    console.log(project);
   }
 
   return (
