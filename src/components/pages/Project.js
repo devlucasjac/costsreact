@@ -8,6 +8,7 @@ import Conteiner from "../layout/Conteiner";
 import ProjectForm from "../project/ProjectForm";
 import Message from "../layout/Message";
 import ServiceForm from "../services/ServiceForm";
+import ServiceCard from "../services/ServiceCard";
 
 function Project() {
   const { id } = useParams();
@@ -31,13 +32,25 @@ function Project() {
         .then((resp) => resp.json())
         .then((data) => {
           setProject(data);
-          console.log(data);
         })
         .catch((err) => {
           console.log(err);
         });
     }, 300);
-  }, [id]);
+  }, [id, message]);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/serviços/`, {
+      method: "GET",
+      headers: headers,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setServices(data);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  }, [id, message]);
 
   function editPost(project) {
     setMessage("");
@@ -62,25 +75,25 @@ function Project() {
 
   function createService(service) {
     setMessage("");
-    fetch("http://127.0.0.1:8000/api/v1/servi%C3%A7o/", {
+    fetch("http://127.0.0.1:8000/api/v1/serviço/", {
       method: "POST",
       headers: headers,
       body: JSON.stringify(service),
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         if (
           data ===
           "O custo total dos serviços não deve exceder o orçamento do projeto"
         ) {
-          console.log("entrou");
           setMessage(data);
           setType("error");
           return;
+        } else {
+          setMessage("Serviço Criado!");
+          setType("success");
+          setShowServiceForm(false);
         }
-        setMessage("Serviço Criado!");
-        setType("success");
       })
       .catch((e) => {
         setMessage(e);
@@ -95,6 +108,8 @@ function Project() {
   function toggleServiceFrom() {
     setShowServiceForm(!showServiceForm);
   }
+
+  function removeService() {}
 
   return (
     <>
@@ -147,7 +162,18 @@ function Project() {
             </div>
             <h2>Serviços:</h2>
             <Conteiner customClass="start">
-              <p>serviços</p>
+              {services.length > 0 &&
+                services.map((service) => (
+                  <ServiceCard
+                    id={service.id}
+                    name={service.nome}
+                    description={service.descrição}
+                    cost={service.custo}
+                    key={service.id}
+                    handleRemove={removeService}
+                  />
+                ))}
+              {services.length === 0 && <p>Não ha serviços cadastrados</p>}
             </Conteiner>
           </Conteiner>
         </div>
