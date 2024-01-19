@@ -47,7 +47,6 @@ function Project() {
       .then((resp) => resp.json())
       .then((data) => {
         setServices(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, [id, message]);
@@ -67,7 +66,6 @@ function Project() {
         setType("success");
       })
       .catch((err) => {
-        console.log(err);
         setType("error");
         setMessage(err);
       });
@@ -101,6 +99,23 @@ function Project() {
       });
   }
 
+  function removeService(id) {
+    setMessage("");
+    fetch(`http://127.0.0.1:8000/api/v1/serviço/${id}`, {
+      method: "DELETE",
+      headers: headers,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("enviou");
+        setMessage("Serviço Deletado!");
+        setType("success");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   function toggleProjectForm() {
     setShowProjectForm(!showProjectForm);
   }
@@ -108,8 +123,6 @@ function Project() {
   function toggleServiceFrom() {
     setShowServiceForm(!showServiceForm);
   }
-
-  function removeService() {}
 
   return (
     <>
