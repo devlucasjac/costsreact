@@ -1,6 +1,6 @@
 import styles from "./Loading.module.css";
 
-import loading from "../../img/1.png";
+import loading from "../../img/Spinner.gif";
 
 function Loading() {
   return (

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 
 import styles from "./NavBar.module.css";
-import logo from "../../img/moeda-brasil.png";
-//import logo from "../../img/0.png";
+import logo from "../../img/moedinha.png";
 
 import Conteiner from "./Conteiner";
 
