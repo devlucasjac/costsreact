@@ -23,12 +23,15 @@ function Projects() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch("http://127.0.0.1:8000/api/v1/projetos/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(
+        "https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((resp) => resp.json())
         .then((data) => {
           setProjetos(data);
@@ -39,12 +42,15 @@ function Projects() {
   }, []);
 
   function removeProject(id) {
-    fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/${id}/`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         setProjetos(projetos.filter((projeto) => projeto.id !== id));

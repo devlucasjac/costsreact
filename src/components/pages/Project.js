@@ -25,10 +25,13 @@ function Project() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/`, {
-        method: "GET",
-        headers: headers,
-      })
+      fetch(
+        `https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/${id}/`,
+        {
+          method: "GET",
+          headers: headers,
+        }
+      )
         .then((resp) => resp.json())
         .then((data) => {
           setProject(data);
@@ -40,10 +43,13 @@ function Project() {
   }, [id, message]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/serviços/`, {
-      method: "GET",
-      headers: headers,
-    })
+    fetch(
+      `https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/${id}/serviços/`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         setServices(data);
@@ -53,11 +59,14 @@ function Project() {
 
   function editPost(project) {
     setMessage("");
-    fetch(`http://127.0.0.1:8000/api/v1/projetos/${id}/`, {
-      method: "PUT",
-      headers: headers,
-      body: JSON.stringify(project),
-    })
+    fetch(
+      `https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/${id}/`,
+      {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(project),
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         setProject(data);
@@ -73,7 +82,7 @@ function Project() {
 
   function createService(service) {
     setMessage("");
-    fetch("http://127.0.0.1:8000/api/v1/serviço/", {
+    fetch("https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/serviço/", {
       method: "POST",
       headers: headers,
       body: JSON.stringify(service),
@@ -101,10 +110,13 @@ function Project() {
 
   function removeService(id) {
     setMessage("");
-    fetch(`http://127.0.0.1:8000/api/v1/serviço/${id}`, {
-      method: "DELETE",
-      headers: headers,
-    })
+    fetch(
+      `https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/serviço/${id}`,
+      {
+        method: "DELETE",
+        headers: headers,
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         console.log("enviou");

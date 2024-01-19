@@ -11,8 +11,7 @@ function NewProject() {
   const state = { message: "Projeto criado com sucesso!" };
 
   function createPost(project) {
-    //initialize cost and services
-    fetch("http://127.0.0.1:8000/api/v1/projetos/", {
+    fetch("https://costs-django-672bb4a4fc64.herokuapp.com/api/v1/projetos/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
